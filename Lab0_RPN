@@ -1,0 +1,68 @@
+# https://docs.python.org/2/tutorial/introduction.html#lists
+op = ["+", "-", "*", "/", "(", ")"]
+
+def rpn(s):  # Reverse Polish Notation - обратная польская нотация
+    p = par(s)
+    b = 0
+    c = []
+    for a in p:
+        if a == "(":
+            b =[a] + b
+        elif a in op:
+            if not b:
+                b = [a]
+            elif a == ")":
+                while True:
+                    b = b[1:]
+                    que = b[0]
+                    if que == "(":
+                        break
+                    c += que
+            elif symb(b[0])< symb(a):
+                b = [a]+b
+            else:
+                while True:
+                    if not b:
+                        break
+                    que = b[0]
+                    c+=que
+                    b = b[1:]
+                    if symb(que) == symb(a):
+                        break
+                b = [a] + b
+        else:
+            c += [a]
+    while b:
+        que = b[0]
+        c += que
+        b = b[1:]
+    return c
+
+
+def symb(sy):
+    if sy == "+" or sy == "-":
+        return 1
+    elif sy == "*" or sy == "/":
+        return 2
+    elif sy=="(":
+        return 0
+
+
+def par(s):
+    p = []
+    t = ''
+    for a in s:
+        if a != '':
+            if a in op:
+                if t != '':
+                    p += t
+                p += a
+                t = ''
+            else:
+                t += a
+    if t !='':
+        p += t
+    return p
+
+
+print(rpn("a+b-2/(89*x*(2/3)"))
