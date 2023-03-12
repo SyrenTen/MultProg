@@ -1,1 +1,1 @@
-print(10)
+print("Multi-paradigm programming language:Task 1")
