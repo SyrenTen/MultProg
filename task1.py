@@ -1,1 +1,5 @@
 print("Multi-paradigm programming language:Task 1")
+print("Maslova Vitaliia, i dont know")
+s = ("Владислав Валерійович Овсяніков, " * 45)
+a = len(s)
+print(s[:a-2])
