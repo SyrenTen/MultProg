@@ -15,4 +15,4 @@ elif math.sin(alfa) == 0:
     print('Error: cant divide by zero -.-')
 else:
     y = math.log(x**3 - 8) + 1/math.sin(alfa)
-    print("y = ", y)
+    print('y = ', y)
