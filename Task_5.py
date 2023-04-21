@@ -13,4 +13,4 @@ while a > e:
     a = 10**(-n)*math.factorial(n-1)
     sum += a
 
-print("sum = ", sum)
+print('sum = ', sum)
