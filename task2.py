@@ -1,13 +1,13 @@
-#Multi-paradigm programming language: Task 1, Maslova Vitaliia, idk
+# Multi-paradigm programming language: Task 1, Maslova Vitaliia, idk
+from utils import validation
 
-print('Multi-paradigm programming language: Task 2')
+print('''Multi-paradigm programming language: Task 2
+Maslova Vitaliia, idk''')
 
-print('Maslova Vitaliia, idk')
+x = validation('x', int)
+y = validation('y', int)
+z = validation('x', int)
 
-x = int(input('Input x: '))
-y = int(input('Input y: '))
-z = int(input('Input z: '))
-
-func = float((((11+2*x +4.1)/(12.4-y))+z))
+func = ((11 + 2 * x + 4.1) / (12.4 - y)) + z
 
 print(func)
