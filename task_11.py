@@ -26,7 +26,7 @@ def find_orientation(name):
     else:
         orientation = 'Negative'
 
-    print('Article orientation:', orientation)
+    print(f'Article orientation: {orientation}')
 
 
 if __name__ == '__main__':
