@@ -29,7 +29,7 @@ class Cell(Button):  # клас Cell наследуется от класса Bu
 
         if self.collide_point(*touch.pos) and touch.button == 'left' and self.flagged:
             return False  # возрращает False и предотвращает нажатие
-        return super(Cell, self).on_touch_down(touch)  # если ничего выше не произошло - просто нажатие
+        return super().on_touch_down(touch)  # если ничего выше не произошло - просто нажатие
 
 
 class Minesweeper(GridLayout):
@@ -45,13 +45,13 @@ class Minesweeper(GridLayout):
 
     def creating_buttons(self):
         for row in range(self.rows):
-            cell_row = []
+            cell_rc = []
             for col in range(self.cols):
                 cell = Cell()
                 cell.bind(on_release=self.button_clicked)  # on_release запускается при отпускании кнопки
                 self.add_widget(cell)
-                cell_row.append(cell)
-            self.cells.append(cell_row)
+                cell_rc.append(cell)
+            self.cells.append(cell_rc)
 
     def creating_mines(self):
         mine_pos = []
@@ -106,7 +106,6 @@ class Minesweeper(GridLayout):
         for i in range(max(0, row - 1), min(row + 2, self.rows)):
             for j in range(max(0, col - 1), min(col + 2, self.cols)):
                 adjacent_cell = self.cells[i][j]
-
                 if not adjacent_cell.opened and not adjacent_cell.mine:
                     adjacent_cell.opened = True
                     adjacent_cell.text = str(adjacent_cell.mine_count)
@@ -122,13 +121,13 @@ class Minesweeper(GridLayout):
                 for cell in row:
                     if cell.mine:
                         cell.background_normal = 'bomb.png'
-                    else:
+                    else:  # открывает ячейки после поражения
                         cell.opened = True
                         cell.text = str(cell.mine_count)
                         cell.disabled = True
             message = 'Game over'
 
-        game_button = Button(text='New game', height=50)
+        game_button = Button(text='New game')
         game_button.bind(on_release=self.new_game)
         popup = Popup(title=message, title_align='center', content=game_button,
                       size_hint=(None, None), size=(150, 150))
