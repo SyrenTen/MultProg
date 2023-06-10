@@ -1,24 +1,21 @@
 # Multi-paradigm programming language: Task 5.2, Maslova Vitaliia, idk
-from utils import validation
+from utils import validate_input
 
 print('''Multi-paradigm programming language: Task 5.2
 Maslova Vitaliia, idk''')
 
 
-def task5p2(num):
+def numbers_amount(number):
     count = 0
-
-    if num == 0:
-        count = 1
-    else:
-        while num != 0:
-            count += 1
-            num //= 10
-
+    if not number:
+        return 1
+    while number:
+        count += 1
+        number //= 10
     return count
 
 
 if __name__ == '__main__':
-    n = validation('num', int)
-    inp_count = task5p2(n)
-    print('count =', inp_count)
+    num = validate_input('number', int)
+    inp_count = numbers_amount(num)
+    print(f'Count = {inp_count}')

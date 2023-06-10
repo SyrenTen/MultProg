@@ -1,24 +1,25 @@
 # Multi-paradigm programming language: Task 5.1, Maslova Vitaliia, idk
-import math
-from utils import validation
+import math as m
+from utils import validate_input
 
 print('''Multi-paradigm programming language: Task 5.1'
 Maslova Vitaliia, idk''')
 
 
-def task5p1(num):
-    e = 1e-4
-    a = 1
-    amount = 0
-    while a > e:
-        a = 10 ** (-num) * math.factorial(num - 1)
-        amount += a
-        num += 1
+def find_row_sum(number):
+    E = 10 - 4
+    a = 10 ** (-number) * m.factorial(number - 1)
+    count = a
 
-    return amount
+    while a > E:
+        a = 10 ** (-number) * m.factorial(number - 1)
+        count += a
+        number += 1
+
+    return count
 
 
 if __name__ == '__main__':
-    n = validation('num', int)
-    am = task5p1(n)
-    print('Sum =', am)
+    num = validate_input('number', int)
+    amount = find_row_sum(num)
+    print(f'Sum = {amount}')
