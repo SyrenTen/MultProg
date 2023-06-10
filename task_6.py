@@ -1,111 +1,97 @@
 import sqlite3
 import csv
-from utils import validation
+from utils import validate_input
 
 
-def task_6_p1():
-    with open('numbers.txt', 'r') as task6p1:
-        count = sum(map(float, task6p1.readlines()))
+def calculate_sum():
+    with open('numbers.txt', 'r') as num_file:
+        count = sum(map(float, num_file.readlines()))
 
-    with open('sum_numbers.txt', 'w') as task6p1:
-        task6p1.write(str(count))
-
-
-def task_6_p2(even_number):
-    with open('even_number.txt', 'w') as task6p2:
-        if (even_number % 2) == 0:
-            task6p2.write(f'{even_number} is even number')
-        else:
-            task6p2.write(f'{even_number} is not even number')
+    with open('sum_numbers.txt', 'w') as sum_file:
+        sum_file.write(str(count))
 
 
-def task_6_p3():
-    lines = []
-    with open('learning_python.txt', 'r') as task6p3:
-        line = task6p3.readline()
-        while line:
-            lines.append(line.strip())
-            line = task6p3.readline()
+def check_even_or_not(number):
+    with open('even_or_not_number.txt', 'w') as result_file:
+        result_file.write(f'{number} is even number') if (number % 2) == 0 else result_file.write(f'{number} is not '
+                                                                                                  f'even number')
 
+
+def text_output():
+    with open('learning_python.txt', 'r') as text_file:
+        lines = [line.strip() for line in text_file.readlines()]
     print(lines)
 
 
-def task_6_p4():
-    with open('learning_python.txt', 'r') as task6p4:
-        new_list = task6p4.read()
-    func_repl = new_list.replace('Python', 'C')
-    print(func_repl)
+def replace_text():
+    print(open('learning_python.txt', 'r').read().replace('Python', 'C'))
 
 
-def task_6_p5():
-    open('guest_book.txt', 'w')
+def ask_name():
     while True:
         name = input('What is your name? (If you want to leave - write STOP) ')
         if name == 'STOP':
-            exit()
+            break
         welcome = f'Hello, {name} \n'
 
-        with open('guest_book.txt', 'a') as task6p5:
-            task6p5.write(welcome)
+        with open('guest_book.txt', 'a') as guests_file:
+            guests_file.write(welcome)
         print(welcome)
 
 
-def task_6_p6():
+def count_word_the():
     book_list = ['Earle_Wayne.txt', 'History_of_the_US.txt', 'Lilith.txt']
-    for books in book_list:
-        with open(books, encoding='utf-8') as task6p6:
-            blist = task6p6.read()
+    for book in book_list:
+        with open(book, encoding='utf-8') as amount_file:
+            blist = amount_file.read()
             count = blist.lower().count('the')
-            print(f'In {books} word the appears {count} times')
+            print(f'In {book} word the appears {count} times')
 
 
-def task_6_p7():
-    with open('History_Zionism.txt', 'r', encoding='utf-8') as newtext:
-        copytext = newtext.read()
-        ftext = copytext.replace('\n', ' ')
-    with open('formatted_text.txt', 'w', encoding='utf-8') as task6p7:
-        task6p7.write(ftext)
+def replace_gaps():
+    ftext = open('History_Zionism.txt', 'r', encoding='utf-8').read().replace('\n', ' ')
+    with open('formatted_text.txt', 'w', encoding='utf-8') as format_text:
+        format_text.write(ftext)
 
 
-def task_6_p8():
-    with open('Robin.txt', 'r', encoding='utf-8') as task6p6:
-        robin = task6p6.read()
+def find_header():
+    with open('Robin.txt', 'r', encoding='utf-8') as book:
+        robin = book.read()
 
-    with open('chapters.txt', 'w', encoding='utf-8') as task66:
-        task66.writelines(head for head in robin.split('\n') if head.startswith('CHAPTER'))
+    with open('chapters.txt', 'w', encoding='utf-8') as header_file:
+        header_file.writelines(head for head in robin.split('\n') if head.startswith('CHAPTER'))
 
 
-def task_6_p9():
-    countlow = 0
-    countup = 0
-    with open('Monte_Cristo.txt', 'r', encoding='utf-8') as part9:
-        cristo = part9.read()
-    countall = len(cristo)
+def find_percent():
+    count_low = 0
+    count_up = 0
+    with open('Monte_Cristo.txt', 'r', encoding='utf-8') as book:
+        cristo = book.read()
+    count_all = len(cristo)
     for cr in cristo:
-        if cr.isalpha() and cr.islower():
-            countlow += 1
-        if cr.isalpha() and cr.isupper():
-            countup += 1
+        if cr.islower():
+            count_low += 1
+        elif cr.isupper():
+            count_up += 1
 
-    low = (countlow / countall) * 100
-    up = (countup / countall) * 100
+    low = (count_low / count_all) * 100
+    up = (count_up / count_all) * 100
 
     print(f'Percent of small letters in text is {low}%')
     print(f'Percent of capital letters in text is {up}%')
 
 
-def task_6_p10():
+def work_with_database():
     conn = sqlite3.connect('imdb.db')
     curs = conn.cursor()
     curs.execute('''CREATE TABLE ratings (id INTEGER PRIMARY KEY, title
     VARCHAR(20), year INT, rating FLOAT)''')
 
-    with open('imdb.csv', 'r') as task6p10:
-        readcsv = csv.reader(task6p10)
+    with open('imdb.csv', 'r') as db_file:
+        readcsv = csv.reader(db_file)
     for line in readcsv:
         curs.execute('INSERT INTO ratings (title, year, rating) VALUES(?, ?, ?)',
                      (line[0], line[1], line[2], line[3]))
-        # I'm not sure if it's right :/
 
     curs.execute('SELECT * FROM ratings ORDER BY title')
     rows = curs.fetchall()
@@ -120,16 +106,16 @@ def task_6_p10():
 
 
 if __name__ == '__main__':
-    task_6_p1()
+    calculate_sum()
 
-    num = validation('even number ', int)
-    task_6_p2(num)
+    num = validate_input('even number ', int)
+    check_even_or_not(num)
 
-    task_6_p3()
-    task_6_p4()
-    task_6_p5()
-    task_6_p6()
-    task_6_p7()
-    task_6_p8()
-    task_6_p9()
-    task_6_p10()
+    text_output()
+    replace_text()
+    ask_name()
+    count_word_the()
+    replace_gaps()
+    find_header()
+    find_percent()
+    work_with_database()

@@ -1,7 +1,6 @@
 import pytest
 
-from task_6 import task_6_p1
-from task_6 import task_6_p2, task_6_p3, task_6_p4, task_6_p6, task_6_p8, task_6_p9
+from task_6 import calculate_sum, check_even_or_not, text_output, replace_text, count_word_the, find_percent
 
 
 # test part 1
@@ -10,8 +9,8 @@ from task_6 import task_6_p2, task_6_p3, task_6_p4, task_6_p6, task_6_p8, task_6
 @pytest.fixture
 def num_file():
     numbers = ['3', '10', '212']
-    with open('numbers.txt', 'w') as f:
-        f.write('\n'.join(numbers))
+    with open('numbers.txt', 'w') as file:
+        file.write('\n'.join(numbers))
     yield 'numbers.txt'
 
 
@@ -20,10 +19,10 @@ def sum_num_file():
     yield 'sum_numbers.txt'
 
 
-def test_task_6_p1(num_file, sum_num_file):
-    task_6_p1()
-    with open(sum_num_file, 'r') as f:
-        result = float(f.read().strip())
+def test_calculate_sum(num_file, sum_num_file):
+    calculate_sum()
+    with open(sum_num_file, 'r') as file:
+        result = float(file.read().strip())
     expected = sum(map(float, ['3', '10', '212']))
     assert result == expected
 
@@ -34,22 +33,22 @@ def test_task_6_p1(num_file, sum_num_file):
 @pytest.mark.parametrize('num, expected',
                          [(4, '4 is even number'),
                           (5, '5 is not even number')])
-def test_task_6_p2(num, expected):
-    task_6_p2(num)
-    with open('even_number.txt', 'r') as file:
+def test_check_even_or_not(num, expected):
+    check_even_or_not(num)
+    with open('even_or_not_number.txt', 'r') as file:
         contents = file.read().strip()
     assert contents == expected
 
 
-def test_task_6_p3(capsys):
-    task_6_p3()
+def test_text_output(capsys):
+    text_output()
     captured = capsys.readouterr()
     assert captured.out == ("['Python is good language', 'Python good but this txt was deleted', 'Python "
                             "is smart', 'Python is fast', 'In Python you can do anything']\n")
 
 
-def test_task_6_p4(capsys):
-    task_6_p4()
+def test_replace_text(capsys):
+    replace_text()
     captured = capsys.readouterr()
     assert captured.out == ('C is good language\n'
                             'C good but this txt was deleted\n'
@@ -58,31 +57,16 @@ def test_task_6_p4(capsys):
                             'In C you can do anything\n')
 
 
-def test_task_6_p6(capsys):
-    task_6_p6()
+def test_count_word_the(capsys):
+    count_word_the()
     captured = capsys.readouterr()
     assert captured.out == ('In Earle_Wayne.txt word the appears 8236 times\n'
                             'In History_of_the_US.txt word the appears 10622 times\n'
                             'In Lilith.txt word the appears 7370 times\n')
 
 
-# def test_task_6_p8(capsys):
-#     with open('chapters.txt', 'r', encoding='utf-8') as chapters_file:
-#         chapters_content = chapters_file.read()
-#     expected = "CHAPTER I. START IN LIFECHAPTER II. SLAVERY AND ESCAPECHAPTER III." \
-#                "WRECKED ON A DESERT ISLANDCHAPTER IV." \
-#                "FIRST WEEKS ON THE ISLANDCHAPTER V. BUILDS A HOUSE—THE JOURNALCHAPTER VI. " \
-#                "ILL AND CONSCIENCE-STRICKENCHAPTER VII. AGRICULTURAL EXPERIENCECHAPTER VIII. " \
-#                "SURVEYS HIS POSITIONCHAPTER IX. A BOATCHAPTER X. TAMES GOATSCHAPTER XI. " \
-#                "FINDS PRINT OF MAN’S FOOT ON THE SANDCHAPTER XII. A CAVE RETREATCHAPTER XIII. " \
-#                "WRECK OF A SPANISH SHIPCHAPTER XIV. A DREAM REALISEDCHAPTER XV. " \
-#                "FRIDAY’S EDUCATIONCHAPTER XVI. RESCUE OF PRISONERS FROM CANNIBALSCHAPTER XVII. " \
-#                "VISIT OF MUTINEERSCHAPTER XVIII." \
-#                "THE SHIP RECOVEREDCHAPTER XIX. RETURN TO ENGLANDCHAPTER XX. FIGHT BETWEEN FRIDAY AND A BEAR"
-#     assert chapters_content == expected
-
-def test_task_6_p9(capsys):
-    task_6_p9()
+def test_find_percent(capsys):
+    find_percent()
     captured = capsys.readouterr()
     assert captured.out == ('Percent of small letters in text is 74.90511378599867%\n'
                             'Percent of capital letters in text is 2.092503148389759%\n')
