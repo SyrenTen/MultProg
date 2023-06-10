@@ -1,33 +1,27 @@
 import pytest
-from task_7 import Point
-from task_7 import Line
+from task_7 import Point, Line
 
 
-def test_task_7_length():
+@pytest.fixture
+def dots():
     dot1 = Point(1, 2)
     dot2 = Point(4, 6)
-    line = Line(dot1, dot2)
-    assert line.length() == 5
+    return Line(dot1, dot2)
 
 
-def test_task_7_midpoint():
-    dot1 = Point(1, 2)
-    dot2 = Point(4, 6)
-    line = Line(dot1, dot2)
-    mid = line.midpoint()
+def test_find_length(dots):
+    assert dots.length() == 5
+
+
+def test_find_midpoint(dots):
+    mid = dots.midpoint()
     assert mid.x == 2.5
     assert mid.y == 4
 
 
-def test_task7_x_projection():
-    dot1 = Point(1, 2)
-    dot2 = Point(4, 6)
-    line = Line(dot1, dot2)
-    assert line.x_projection() == 3
+def test_find_x_projection(dots):
+    assert dots.x_projection() == 3
 
 
-def test_task7_y_projection():
-    dot1 = Point(1, 2)
-    dot2 = Point(4, 6)
-    line = Line(dot1, dot2)
-    assert line.y_projection() == 4
+def test_find_y_projection(dots):
+    assert dots.y_projection() == 4

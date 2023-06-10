@@ -1,25 +1,40 @@
-import math
+import math as m
 
 
 class Point:
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
+
+    @property
+    def x(self):
+        return self._x
+
+    @property
+    def y(self):
+        return self._y
 
 
 class Line:
     def __init__(self, point1, point2):
-        self.point1 = point1
-        self.point2 = point2
+        self._point1 = point1
+        self._point2 = point2
+
+    @property
+    def point1(self):
+        return self._point1
+
+    @property
+    def point2(self):
+        return self._point2
 
     def __str__(self):
-        return '(' + str(self.point1.x) + ', ' + str(self.point1.y) + \
-            ' to ' + str(self.point2.x) + ', ' + str(self.point2.y) + ')'
+        return f'{str(self.point1.x)}, {str(self.point1.y)} to {str(self.point2.x)}, {str(self.point2.y)}'
 
     def length(self):
         dx = self.point2.x - self.point1.x
         dy = self.point2.y - self.point1.y
-        return math.sqrt(dx ** 2 + dy ** 2)
+        return m.sqrt(dx ** 2 + dy ** 2)
 
     def midpoint(self):
         x_mid = (self.point1.x + self.point2.x) / 2
