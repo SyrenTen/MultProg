@@ -1,75 +1,64 @@
 import random
 
-from utils import validation
+from utils import validate_input
 
 
-def hello_site(username):
+def say_hello(username):
     if not username:
         print('We need to find some users!')
-    elif username:
-        for users in username:
-            if users == 'Admin':
-                print('Hello Admin, I hope you`re well')
-            else:
-                print(f'Hello {users}, thank you for logging in again')
+    else:
+        greet = ['Hello Admin, I hope you`re well' if user == 'Admin' else f'Hello {user}, thank you for ' \
+                                                                           f'logging in again' for user in username]
+        print(greet)
 
 
 def know_figures(number):
-    figure = {3: 'Triangle',
+    FIGURE = {3: 'Triangle',
               4: 'Quadrangle',
               5: 'Pentagon',
               6: 'Hexagon'}
 
-    if number > 6 or number < 3:
-        print('Error. Enter number from 3 to 6')
-    else:
-        print(f'Figure with {number} sides is {figure[number]}')
+    print('Error. Enter number from 3 to 6') if number not in FIGURE else print(f'Figure with {number} sides '
+                                                                                f'is {FIGURE[number]}')
+    # if number in FIGURE dont work for some reason
+    # code works correctly with condition number not in FIGURE
 
 
 def num_ending():
     numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     for i in numbers:
+        num_out = str(i)
         if i == 1:
-            num_out = str(i) + 'st'
+            num_out += 'st'
         elif i == 2:
-            num_out = str(i) + 'nd'
+            num_out += 'nd'
         elif i == 3:
-            num_out = str(i) + 'rd'
+            num_out += 'rd'
         else:
-            num_out = str(i) + 'th'
+            num_out += 'th'
 
         print(num_out)
 
 
 def even_or_not(numb):
-    if numb % 2 == 0:
-        print(f'{numb} is even')
-    else:
-        print(f'{numb} is not even')
+    print(f'{numb} is even') if numb % 2 == 0 else print(f'{numb} is not even')
 
 
 def days_in_months(month_name):
-    months = {'January': 31, 'February': '28 or 29', 'March': 31, 'April': 30, 'May': 31, 'June': 30, 'July': 31,
+    MONTHS = {'January': 31, 'February': '28 or 29', 'March': 31, 'April': 30, 'May': 31, 'June': 30, 'July': 31,
               'August': 31, 'September': 30, 'October': 31, 'November': 30, 'December': 31}
 
-    if month_name in months:
-        day = months[month_name]
-        print(f'Days in {month_name}: {day}')
-    else:
-        print('Error. Wrong month name')
+    print(f'Days in {month_name}: {MONTHS[month_name]}') if month_name in MONTHS else print('Error. Wrong month name')
 
 
 def year_leap_ordinary(year_num):
-    if year_num % 4 == 0 and (year_num % 100 != 0 or year_num % 400 == 0):
-        print('Leap year')
-    else:
-        print('Ordinary year')
+    print('Leap year') if year_num % 4 == 0 and (year_num % 100 != 0 or year_num % 400 == 0) else print('Ordinary year')
 
 
 def num_sum_bef_zero():
     digit_sum = 0
     while True:
-        digit = validation('number for task 7', int)
+        digit = validate_input('number for task 7', int)
         if digit == 0:
             break
         digit_sum += digit
@@ -111,11 +100,10 @@ def conversion(choice, dem_or_bin):
     # little experiment with case
     match choice:
         case 1:
-            q = dem_or_bin
-            while q != 0:
-                r = q % 2
+            while dem_or_bin != 0:
+                r = dem_or_bin % 2
                 calc_ten = str(r) + calc_ten
-                q = q // 2
+                dem_or_bin = dem_or_bin // 2
             print(calc_ten)
 
         case 2:
@@ -132,8 +120,8 @@ def rps(user_choice):
     if user_choice == comp_choice:
         print(f'Computer choice: {comp_choice} - It`s a draw')
     elif ((user_choice == 'rock' and comp_choice == 'scissors') or
-            (user_choice == 'paper' and comp_choice == 'rock') or
-            (user_choice == 'scissors' and comp_choice == 'paper')):
+          (user_choice == 'paper' and comp_choice == 'rock') or
+          (user_choice == 'scissors' and comp_choice == 'paper')):
         print(f'Computer choice: {comp_choice} - You win')
     else:
         print(f'Computer choice: {comp_choice} - Computer win')
@@ -141,41 +129,41 @@ def rps(user_choice):
 
 if __name__ == '__main__':
     uname = ['Admin', 'Dima', 'User1234', 'Misha', 'Alex']
-    hello_site(uname)
+    say_hello(uname)
 
-    know_figures(validation('number from 3 to 6', int))
+    know_figures(validate_input('number from 3 to 6', int))
 
     num_ending()
 
-    ev_or_nope = validation('number', int)
+    ev_or_nope = validate_input('number', int)
     even_or_not(ev_or_nope)
 
-    months_names = validation('month name', str)
+    months_names = validate_input('month name', str)
     days_in_months(months_names)
 
-    year = validation('year', int)
+    year = validate_input('year', int)
     year_leap_ordinary(year)
 
     num_sum_bef_zero()
 
-    input_a = validation('a', int)
-    input_b = validation('b', int)
-    input_operation = validation('operation', str)
+    input_a = validate_input('a', int)
+    input_b = validate_input('b', int)
+    input_operation = validate_input('operation', str)
     result = calculator(input_a, input_b, input_operation)
     print(result)
 
-    nominal = validation('nominal', int)
+    nominal = validate_input('nominal', int)
     people_on_money(nominal)
 
-    pos1 = validation('letter from a to h', str)
-    pos2 = validation('number from 1 to 8', int)
+    pos1 = validate_input('letter from a to h', str)
+    pos2 = validate_input('number from 1 to 8', int)
     chess(pos1, pos2)
 
     print('What conversion you want? Ten to bin or bin to ten?')
-    select = validation('1 or 2', int)
-    inp_ten = validation('number', int)
+    select = validate_input('1 or 2', int)
+    inp_ten = validate_input('number', int)
     conversion(select, inp_ten)
 
     print('Now Rock-Paper-Scissors game!')
-    player = validation('your choice', str).lower()
+    player = validate_input('your choice', str).lower()
     rps(player)
