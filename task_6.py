@@ -13,8 +13,8 @@ def calculate_sum():
 
 def check_even_or_not(number):
     with open('even_or_not_number.txt', 'w') as result_file:
-        result_file.write(f'{number} is even number') if (number % 2) == 0 else result_file.write(f'{number} is not '
-                                                                                                  f'even number')
+        x = ' ' if (number % 2) == 0 else 'not'
+        result_file.write(f'{number} is{x}even number')
 
 
 def text_output():
